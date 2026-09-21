@@ -428,8 +428,112 @@
 <span>•</span>
 <a class="hover:underline" href="./terms.html">이용약관</a>
 </div>
-<p>© 2026 enjoy-onepage.com. All rights reserved.</p>
-</div>
-</footer>
+<script>
+  let percent = 1;
+  let chargingInterval = null;
+  const touchPad = document.getElementById('touch-pad');
+  const percentDisplay = document.getElementById('percent-display');
+  const batteryIcon = document.getElementById('battery-icon');
+  const statusHint = document.getElementById('status-hint');
+  const prescriptCard = document.getElementById('prescript-card');
+  const copyBtn = document.getElementById('copy-btn');
+  const resetBtn = document.getElementById('reset-btn');
+  const toast = document.getElementById('toast');
+
+  function startCharging() {
+    if (percent >= 100) return;
+    if (chargingInterval) clearInterval(chargingInterval);
+    statusHint.textContent = "⚡ 멘탈 급속 충전 중... 엄지를 떼지 마세요!";
+    chargingInterval = setInterval(() => {
+      percent += 4;
+      if (percent > 100) percent = 100;
+      percentDisplay.textContent = percent + "%";
+      if (percent >= 30 && percent < 70) {
+        percentDisplay.className = "text-5xl font-black font-mono tracking-tight text-amber-400";
+      } else if (percent >= 70) {
+        percentDisplay.className = "text-5xl font-black font-mono tracking-tight text-emerald-400";
+      }
+      if (percent >= 100) {
+        finishCharging();
+      }
+    }, 40);
+  }
+
+  function stopCharging() {
+    if (percent < 100 && chargingInterval) {
+      clearInterval(chargingInterval);
+      chargingInterval = null;
+      statusHint.textContent = "엄지를 떼셨습니다. 다시 꾹 눌러 충전을 완료하세요.";
+    }
+  }
+
+  function finishCharging() {
+    if (chargingInterval) clearInterval(chargingInterval);
+    chargingInterval = null;
+    percent = 100;
+    percentDisplay.textContent = "100%";
+    percentDisplay.className = "text-5xl font-black font-mono tracking-tight text-emerald-400";
+    batteryIcon.textContent = "🔋";
+    statusHint.textContent = "✓ 100% 완충 완료! 인지 회복 탄력성 정상화.";
+    if (prescriptCard) prescriptCard.classList.remove('hidden');
+    if (navigator.vibrate) {
+      try { navigator.vibrate([100, 50, 100]); } catch(e) {}
+    }
+  }
+
+  if (touchPad) {
+    touchPad.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      startCharging();
+    });
+    touchPad.addEventListener('pointerup', stopCharging);
+    touchPad.addEventListener('pointerleave', stopCharging);
+    touchPad.addEventListener('click', () => {
+      if (percent < 100) {
+        startCharging();
+      }
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      percent = 1;
+      if (chargingInterval) clearInterval(chargingInterval);
+      percentDisplay.textContent = "1%";
+      percentDisplay.className = "text-5xl font-black font-mono tracking-tight text-rose-500";
+      batteryIcon.textContent = "🪫";
+      statusHint.textContent = "엄지를 떼지 말고 꾹 누르고 계세요";
+      if (prescriptCard) prescriptCard.classList.add('hidden');
+    });
+  }
+
+  function showToast(msg) {
+    if (!toast) return;
+    toast.textContent = msg || "진단 결과가 복사되었습니다!";
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0', 'pointer-events-none');
+    }, 2200);
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const textToCopy = `[엄지 멘탈 방전 충전소] 100% 완충 완료!\n• 충전 시간: 완주\n• 멘탈 회복: 1% → 100% 정상화\n• 처방: 일체 연락 두절 및 침대 밀착 강력 권고\n👉 바로가기: https://mental-battery-charger.enjoy-onepage.com/`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy).then(() => showToast());
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = textToCopy;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast();
+      }
+    });
+  }
+</script>
 </body>
 </html>
