@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>엄지 멘탈 방전 충전소 - 촉각 멍때리기 단자</title>
+  <meta name="description" content="배터리 1% 상태에서 하단 단자에 엄지손가락을 얹고 18초간 멍때리는 미니멀 힐링 웹앱. 432Hz 치유 톤과 듀얼 햅틱 심장박동 제공">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
+  <style>
+    html, body { max-width: 100%; overflow-x: hidden; user-select: none; -webkit-user-select: none; }
+    .manual-ad-box { width: 100%; max-width: 960px; overflow: hidden; }
+    .manual-ad-box ins { max-width: 100% !important; overflow: hidden !important; }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.08); } 30% { transform: scale(1); } 45% { transform: scale(1.05); } }
+    .pulse-heart { animation: heartbeat 1.2s infinite ease-in-out; }
+  </style>
+</head>
+<body id="bg-container" class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-1000">
+  <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur sticky top-0 z-30">
+    <div class="max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🔋</span>
+        <h1 class="text-sm font-bold text-amber-400">엄지 멘탈 방전 충전소 (Mental Battery)</h1>
+      </div>
+      <a href="guides/guide.html" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700">
+        가이드
+      </a>
+    </div>
+  </header>
+
+  <div class="manual-ad-box mx-auto my-1 px-4">
+    <ins class="adsbygoogle"
+         style="display:block; height: 60px; max-height: 60px;"
+         data-ad-client="ca-pub-2228289204702106"
+         data-ad-slot="3824727725"
+         data-ad-format="horizontal"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <main class="max-w-xl mx-auto px-4 py-4 w-full flex-grow flex flex-col justify-center text-center">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl relative">
+      
+      <!-- Status & Battery Icon -->
+      <div class="my-4">
+        <div class="inline-block p-4 rounded-3xl bg-slate-950 border border-slate-800 shadow-inner mb-3">
+          <div class="text-4xl" id="battery-icon">🪫</div>
+        </div>
+        <div class="text-5xl font-black font-mono tracking-tight text-rose-500" id="percent-display">1%</div>
+        <p class="text-xs text-slate-400 mt-2 font-medium" id="status-hint">엄지를 떼지 말고 18초간 꾹 누르고 계세요</p>
+      </div>
+
+      <!-- Touch Hold Target -->
+      <div class="my-6 flex justify-center">
+        <div id="touch-pad" class="w-36 h-36 rounded-full bg-gradient-to-b from-slate-800 to-slate-950 border-4 border-slate-700 flex flex-col items-center justify-center cursor-pointer shadow-xl active:scale-95 transition-transform duration-100 touch-none">
+          <span class="text-3xl">👆</span>
+          <span class="text-xs font-bold text-slate-300 mt-1">엄지 접촉 단자</span>
+          <span class="text-[10px] text-slate-500">Touch & Hold</span>
+        </div>
+      </div>
+
+      <!-- Result Prescription Card -->
+      <div id="prescript-card" class="mt-4 bg-slate-950 border border-slate-800 rounded-2xl p-5 text-left font-mono hidden">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-2">
+          <span class="text-xs font-bold text-emerald-400">✓ 100% 완충 진단서</span>
+          <span class="text-[10px] text-slate-500">인스타 스토리 9:16 최적화</span>
+        </div>
+        <div class="space-y-1.5 text-xs text-slate-300">
+          <p>• 충전 시간: <span class="font-bold text-white">18초 완주</span></p>
+          <p>• 멘탈 회복: <span class="font-bold text-emerald-400">1% → 100% 정상화</span></p>
+          <p>• 주요 방전 요인: <span class="text-slate-400">읽씹당한 메시지, 공허한 스크롤</span></p>
+          <p class="pt-2 text-rose-300 font-bold border-t border-slate-800/60">
+            [처방] 귀하는 현재 대화 불능 상태임. 금일 잔여 시간 일체의 연락 두절 및 침대 밀착을 강력 권고함.
+          </p>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <button id="copy-btn" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 px-3 rounded-xl text-xs transition">
+            📋 진단 결과 복사
+          </button>
+          <button id="reset-btn" class="px-3 py-2.5 bg-slate-800 text-slate-400 text-xs rounded-xl">
+            다시 충전
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="mt-6 bg-slate-900 border border-slate-800 rounded-2xl p-5 text-xs text-slate-400 text-left">
+      <h3 class="font-bold text-slate-300 text-sm mb-2">엄지 멘탈 방전 충전소 FAQ</h3>
+      <details class="group cursor-pointer">
+        <summary class="font-semibold text-slate-300 list-none flex justify-between py-1">
+          <span>Q. 432Hz 사운드와 햅틱은 어떤 효과가 있나요?</span>
+          <span class="text-slate-500 group-open:rotate-180 transition">▼</span>
+        </summary>
+        <p class="mt-1.5 text-slate-400 leading-relaxed">
+          432Hz의 부드러운 사인파 톤과 심장 박동 모사 듀얼 진동은 뇌의 과도한 자극(Brain Fog)을 가라앉히고 디지털 디톡스를 유도합니다.
+        </p>
+      </details>
+    </section>
+  </main>
+
+  <div class="manual-ad-box mx-auto my-2 px-4">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2228289204702106"
+         data-ad-slot="3416334507"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-white text-slate-900 font-bold text-xs px-5 py-2.5 rounded-full shadow-2xl transition-opacity duration-300 opacity-0 pointer-events-none z-50">
+    진단 결과가 복사되었습니다!
+  </div>
+
+  <footer class="border-t border-slate-900 py-4 text-center text-xs text-slate-600">
+    © 2026 Mental Battery. All rights reserved.
+  </footer>
+
+  <script>
+    let isHolding = false;
+    let holdStart = 0;
+    let animId = null;
+    let audioCtx = null;
+    let osc = null;
+    let gainNode = null;
+
+    function initAudio() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        osc = audioCtx.createOscillator();
+        gainNode = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(432, audioCtx.currentTime); // 432Hz Healing Tone
+        gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 2.0);
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        osc.start();
+      } catch (e) {}
+    }
+
+    function stopAudio() {
+      try {
+        if (gainNode && audioCtx) {
+          gainNode.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+          setTimeout(() => {
+            if (osc) { osc.stop(); osc.disconnect(); osc = null; }
+          }, 150);
+        }
+      } catch (e) {}
+    }
+
+    const touchPad = document.getElementById('touch-pad');
+    const percentEl = document.getElementById('percent-display');
+    const statusHint = document.getElementById('status-hint');
+    const batteryIcon = document.getElementById('battery-icon');
+    const bgContainer = document.getElementById('bg-container');
+    const card = document.getElementById('prescript-card');
+
+    let lastVibe = 0;
+
+    function loop() {
+      if (!isHolding) return;
+      const elapsed = (Date.now() - holdStart) / 1000;
+      const pct = Math.min(100, Math.floor(1 + (elapsed / 18) * 99));
+
+      percentEl.textContent = `${pct}%`;
+
+      // Color transitions
+      if (pct < 33) {
+        percentEl.className = 'text-5xl font-black font-mono tracking-tight text-rose-500';
+        batteryIcon.textContent = '🪫';
+        bgContainer.className = 'bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-1000';
+      } else if (pct < 75) {
+        percentEl.className = 'text-5xl font-black font-mono tracking-tight text-amber-400';
+        batteryIcon.textContent = '🔋';
+        bgContainer.className = 'bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-1000';
+      } else {
+        percentEl.className = 'text-5xl font-black font-mono tracking-tight text-emerald-400 pulse-heart';
+        batteryIcon.textContent = '⚡';
+        bgContainer.className = 'bg-indigo-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-1000';
+      }
+
+      // Heartbeat vibration every 1.2s
+      if (Date.now() - lastVibe > 1200) {
+        lastVibe = Date.now();
+        if (navigator.vibrate) navigator.vibrate([20, 80]);
+      }
+
+      if (pct >= 100) {
+        // Complete
+        isHolding = false;
+        stopAudio();
+        if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+        statusHint.textContent = '🎉 100% 충전 완료! 진단서가 발급되었습니다.';
+        card.classList.remove('hidden');
+        return;
+      }
+
+      animId = requestAnimationFrame(loop);
+    }
+
+    function startHold(e) {
+      e.preventDefault();
+      if (card.classList.contains('hidden') === false) return;
+      isHolding = true;
+      holdStart = Date.now();
+      lastVibe = 0;
+      statusHint.textContent = '충전 중... 엄지를 떼지 마세요';
+      touchPad.classList.add('scale-95', 'border-emerald-500');
+      initAudio();
+      animId = requestAnimationFrame(loop);
+    }
+
+    function endHold(e) {
+      if (!isHolding) return;
+      isHolding = false;
+      cancelAnimationFrame(animId);
+      stopAudio();
+      touchPad.classList.remove('scale-95', 'border-emerald-500');
+      statusHint.textContent = '⚠️ 충전 중단됨! 다시 누르고 계세요';
+    }
+
+    touchPad.addEventListener('pointerdown', startHold);
+    window.addEventListener('pointerup', endHold);
+    window.addEventListener('pointercancel', endHold);
+
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      percentEl.textContent = '1%';
+      percentEl.className = 'text-5xl font-black font-mono tracking-tight text-rose-500';
+      batteryIcon.textContent = '🪫';
+      card.classList.add('hidden');
+      statusHint.textContent = '엄지를 떼지 말고 18초간 꾹 누르고 계세요';
+      bgContainer.className = 'bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-1000';
+    });
+
+    document.getElementById('copy-btn').addEventListener('click', () => {
+      const url = window.location.href;
+      const text = `방전된 영혼 18초 만에 인공호흡 완료.\n[처방] 금일 잔여 시간 일체 연락 두절 및 침대 밀착 권고.\n👉 멘탈 배터리 충전소: ${url}`;
+      if (navigator.clipboard) navigator.clipboard.writeText(text);
+      const toast = document.getElementById('toast');
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 2200);
+    });
+  </script>
+</body>
+</html>
