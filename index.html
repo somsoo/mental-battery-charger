@@ -521,16 +521,23 @@
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       const textToCopy = `[엄지 멘탈 방전 충전소] 100% 완충 완료!\n• 충전 시간: 완주\n• 멘탈 회복: 1% → 100% 정상화\n• 처방: 일체 연락 두절 및 침대 밀착 강력 권고\n👉 바로가기: https://mental-battery-charger.enjoy-onepage.com/`;
+      function doFallback() {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = textToCopy;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          showToast();
+        } catch(e) {
+          showToast();
+        }
+      }
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(textToCopy).then(() => showToast());
+        navigator.clipboard.writeText(textToCopy).then(() => showToast()).catch(() => doFallback());
       } else {
-        const ta = document.createElement('textarea');
-        ta.value = textToCopy;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast();
+        doFallback();
       }
     });
   }
