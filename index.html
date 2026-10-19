@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>멘탈 배터리 충전기: 직장인 번아웃 자가 점검</title>
-<meta name="description" content="코펜하겐 번아웃 척도(CBI) 문항으로 개인·업무·대인 번아웃을 0~100점으로 보고, 멘탈 배터리 잔량과 점검 기록을 이 기기에만 남깁니다. 진단이 아닌 무료 자가 점검입니다.">
+<meta name="description" content="코펜하겐 번아웃 척도(CBI) 문항으로 개인·업무·대인 번아웃을 0~100점으로 보고,">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://mental-battery-charger.enjoy-onepage.com/">
 <meta name="theme-color" content="#4338ca">
@@ -13,12 +13,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="멘탈 배터리 충전기">
 <meta property="og:title" content="멘탈 배터리 충전기: 직장인 번아웃 자가 점검">
-<meta property="og:description" content="코펜하겐 번아웃 척도(CBI) 문항으로 개인·업무·대인 번아웃을 0~100점으로 보고, 멘탈 배터리 잔량과 점검 기록을 이 기기에만 남깁니다. 진단이 아닌 무료 자가 점검입니다.">
+<meta property="og:description" content="코펜하겐 번아웃 척도(CBI) 문항으로 개인·업무·대인 번아웃을 0~100점으로 보고,">
 <meta property="og:url" content="https://mental-battery-charger.enjoy-onepage.com/">
 <meta property="og:image" content="https://mental-battery-charger.enjoy-onepage.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="멘탈 배터리 충전기: 직장인 번아웃 자가 점검">
-<meta name="twitter:description" content="코펜하겐 번아웃 척도(CBI) 문항으로 개인·업무·대인 번아웃을 0~100점으로 보고, 멘탈 배터리 잔량과 점검 기록을 이 기기에만 남깁니다. 진단이 아닌 무료 자가 점검입니다.">
+<meta name="twitter:description" content="코펜하겐 번아웃 척도(CBI) 문항으로 개인·업무·대인 번아웃을 0~100점으로 보고,">
 <meta name="twitter:image" content="https://mental-battery-charger.enjoy-onepage.com/og-image.png">
 <link rel="alternate" type="application/rss+xml" title="멘탈 배터리 충전기 RSS" href="https://mental-battery-charger.enjoy-onepage.com/rss.xml">
 <link rel="sitemap" type="application/xml" href="https://mental-battery-charger.enjoy-onepage.com/sitemap.xml">
@@ -128,6 +128,25 @@ select,textarea{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1e1b4b;color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:90vw}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion: reduce){.toast,.battery-fill{transition:none}}
+</style>
+<script id="math-guard">
+// Global Math & DOM Output Guard: prevents NaN / Infinity leaks to UI
+(function() {
+  const origToLocaleString = Number.prototype.toLocaleString;
+  Number.prototype.toLocaleString = function(locales, options) {
+    if (!Number.isFinite(this.valueOf())) return '0';
+    return origToLocaleString.call(this, locales, options);
+  };
+  const origToFixed = Number.prototype.toFixed;
+  Number.prototype.toFixed = function(digits) {
+    if (!Number.isFinite(this.valueOf())) return '0';
+    return origToFixed.call(this, digits);
+  };
+})();
+</script>
+<style id="ad-cls-shield">
+  .ad-bottom { min-height: 280px !important; }
+  .ad-bottom ins { min-height: 280px !important; }
 </style>
 </head>
 <body>
